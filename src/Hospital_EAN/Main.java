@@ -14,7 +14,7 @@ public class Main {
     static Connection conn=null;
     static Statement st=null;
     static ResultSet rs=null;
-    static ResultSet rh=null;
+    static ResultSet rp=null;
     static ResultSet rr=null;
     static ResultSet rha=null;
     
@@ -43,31 +43,17 @@ public class Main {
     
     public static ResultSet EnlEst(ResultSet rs)throws SQLException {
         st=sta(st);
-        rs=st.executeQuery("select * from usuario");
+        rs=st.executeQuery("select * from usuarios");
         return rs;
      
     }
     
-    public static ResultSet EnlEstHab(ResultSet rh)throws SQLException {
+    public static ResultSet EnlEstPac(ResultSet rh)throws SQLException {
         st=sta(st);
-        rh=st.executeQuery("select * from habitacion");
-        return rh;
+        rp=st.executeQuery("select * from paciente");
+        return rp;
         
     }
     
-    
-    public static ResultSet EnlEstRes(ResultSet rr)throws SQLException {
-        st=sta(st);
-        rr=st.executeQuery("select * from checkin");
-        return rr;
         
-    }
-    
-     public static ResultSet EnlEstHabActiva(ResultSet rha)throws SQLException {
-        st=sta(st);
-        rha=st.executeQuery("select * from habitacion where idestado = 'LIBRE'");
-        return rha;
-        
-    }
 }
-
