@@ -44,6 +44,7 @@ public class Login extends javax.swing.JFrame {
         BIngresar = new javax.swing.JButton();
         Mensaje = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        BIngresoLibre = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 255));
@@ -90,6 +91,16 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\HUGO DIAZ\\Documents\\NetBeansProjects\\Proyecto_Hospital\\Login.jpg")); // NOI18N
 
+        BIngresoLibre.setBackground(new java.awt.Color(0, 51, 153));
+        BIngresoLibre.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BIngresoLibre.setForeground(new java.awt.Color(255, 255, 255));
+        BIngresoLibre.setText("LIBRE");
+        BIngresoLibre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BIngresoLibreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -115,6 +126,8 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(BSalir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BIngresoLibre)
+                        .addGap(27, 27, 27)
                         .addComponent(BIngresar))
                     .addComponent(Mensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -137,7 +150,8 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BSalir)
-                    .addComponent(BIngresar))
+                    .addComponent(BIngresar)
+                    .addComponent(BIngresoLibre))
                 .addContainerGap())
         );
 
@@ -203,6 +217,13 @@ public class Login extends javax.swing.JFrame {
     private void TxtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtUsuarioActionPerformed
+
+    private void BIngresoLibreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BIngresoLibreActionPerformed
+        this.setVisible(false);
+        Menu FMenu = new Menu();
+        FMenu.setVisible(true);
+        FMenu.pack();
+    }//GEN-LAST:event_BIngresoLibreActionPerformed
     
     /**
      * @param args the command line arguments
@@ -241,6 +262,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BIngresar;
+    private javax.swing.JButton BIngresoLibre;
     private javax.swing.JButton BSalir;
     private javax.swing.JLabel Mensaje;
     private javax.swing.JPasswordField TxtClave;

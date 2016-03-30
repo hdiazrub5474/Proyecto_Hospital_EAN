@@ -76,6 +76,8 @@
                       <Group type="102" attributes="0">
                           <Component id="BSalir" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="BIngresoLibre" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="BIngresar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="Mensaje" alignment="0" max="32767" attributes="0"/>
@@ -105,6 +107,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BSalir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BIngresar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BIngresoLibre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -195,6 +198,23 @@
               <Image iconType="2" name="C:\Users\HUGO DIAZ\Documents\NetBeansProjects\Proyecto_Hospital\Login.jpg"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="BIngresoLibre">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="33" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="18" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="LIBRE"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BIngresoLibreActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
