@@ -206,9 +206,9 @@ public class AyudaServicio extends javax.swing.JFrame {
 
     private void BSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalir1ActionPerformed
         this.setVisible(false);
-        Menu FMenu = new Menu();
-        FMenu.setVisible(true);
-        FMenu.pack();
+        //Menu FMenu = new Menu();
+        //FMenu.setVisible(true);
+        //FMenu.pack();
     }//GEN-LAST:event_BSalir1ActionPerformed
 
     private void BBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscar1ActionPerformed
@@ -221,13 +221,13 @@ public class AyudaServicio extends javax.swing.JFrame {
             //JOptionPane.showMessageDialog(null,fila);
             if (fila>=0)
             {
-                CrearCita FCrearCita = new CrearCita();
+                //CrearCita FCrearCita = new CrearCita();
                 
                 CrearCita.TxtServicio.setText(TablaServicio.getValueAt(fila, 0).toString());
                 CrearCita.TxtDescripcion.setText(TablaServicio.getValueAt(fila, 1).toString());
                 CrearCita.TxtCosto.setText(TablaServicio.getValueAt(fila, 2).toString());
                 this.setVisible(false);
-                FCrearCita.setVisible(true);
+                //FCrearCita.setVisible(true);
                 
                 
             }

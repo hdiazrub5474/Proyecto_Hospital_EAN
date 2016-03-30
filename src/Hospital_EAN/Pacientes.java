@@ -371,7 +371,7 @@ public class Pacientes extends javax.swing.JFrame {
             try{
                 conn=Main.Enlace(conn);
                 String sqldelete="DELETE FROM PACIENTE WHERE CEDULA='"+cedula+"'";
-                JOptionPane.showMessageDialog(null,sqldelete);
+               // JOptionPane.showMessageDialog(null,sqldelete);
                 PreparedStatement psta=conn.prepareStatement(sqldelete);
                 psta.executeUpdate();
                 mostrarDatosPaciente("");

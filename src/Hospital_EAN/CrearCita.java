@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Hospital_EAN;
+import static Hospital_EAN.Pacientes.conn;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.logging.Level;
@@ -26,6 +27,23 @@ public class CrearCita extends javax.swing.JFrame {
      */
     public CrearCita() {
         initComponents();
+        String sql="SELECT * FROM CONTADOR";
+        
+        int contador;
+        try {
+            conn=Main.Enlace(conn);
+            Statement st = conn.createStatement();
+            ResultSet rs;
+            rs = st.executeQuery(sql);
+            while (rs.next()){
+              contador= rs.getInt(1);
+              //JOptionPane.showMessageDialog(null,contador);
+              TxtCita.setText(Integer.toString(contador));
+              
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Pacientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
     
@@ -54,7 +72,7 @@ public class CrearCita extends javax.swing.JFrame {
         TxtSexo = new javax.swing.JTextField();
         BSalir1 = new javax.swing.JButton();
         BAyudaPaciente = new javax.swing.JButton();
-        BGrabarPaciente2 = new javax.swing.JButton();
+        BGrabarCita = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         TxtServicio = new javax.swing.JTextField();
         TxtDescripcion = new javax.swing.JTextField();
@@ -70,6 +88,9 @@ public class CrearCita extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         TxtEspecialidad = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
+        BAyudaMedico = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        TxtCita = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,13 +129,13 @@ public class CrearCita extends javax.swing.JFrame {
             }
         });
 
-        BGrabarPaciente2.setBackground(new java.awt.Color(0, 51, 153));
-        BGrabarPaciente2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        BGrabarPaciente2.setForeground(new java.awt.Color(255, 255, 255));
-        BGrabarPaciente2.setText("GRABAR");
-        BGrabarPaciente2.addActionListener(new java.awt.event.ActionListener() {
+        BGrabarCita.setBackground(new java.awt.Color(0, 51, 153));
+        BGrabarCita.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BGrabarCita.setForeground(new java.awt.Color(255, 255, 255));
+        BGrabarCita.setText("GRABAR");
+        BGrabarCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BGrabarPaciente2ActionPerformed(evt);
+                BGrabarCitaActionPerformed(evt);
             }
         });
 
@@ -141,6 +162,23 @@ public class CrearCita extends javax.swing.JFrame {
 
         jLabel13.setText("ESPECIALIDAD :");
 
+        BAyudaMedico.setBackground(new java.awt.Color(0, 51, 153));
+        BAyudaMedico.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BAyudaMedico.setForeground(new java.awt.Color(255, 255, 255));
+        BAyudaMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BAyudaMedicoActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Nro Cita :");
+
+        TxtCita.setEditable(false);
+        TxtCita.setBackground(new java.awt.Color(0, 153, 255));
+        TxtCita.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        TxtCita.setForeground(new java.awt.Color(204, 0, 51));
+        TxtCita.setBorder(null);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -148,12 +186,12 @@ public class CrearCita extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(BGrabarPaciente2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BGrabarCita)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 436, Short.MAX_VALUE)
                 .addComponent(BSalir1)
                 .addGap(21, 21, 21))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -170,82 +208,103 @@ public class CrearCita extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TxtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TxtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(TxtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(BAyudaMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(TxtFecCit, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(TxtServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(BAyudaServicio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(TxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(BAyudaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(TxtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TxtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                        .addComponent(TxtDescripcion)
                         .addComponent(TxtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(TxtNomMedico)))
-                .addGap(101, 101, 101))
+                        .addComponent(TxtNomMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BAyudaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(233, 233, 233))
+                            .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(10, 10, 10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TxtCita, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(TxtCita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(BAyudaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TxtServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(jLabel2)
+                                                .addComponent(TxtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(BAyudaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel3)
+                                            .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel4)
+                                                    .addComponent(TxtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel5)
+                                                    .addComponent(TxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jLabel7))
+                                            .addComponent(BAyudaServicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(TxtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(TxtFecNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(TxtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(TxtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel7))
-                                    .addComponent(BAyudaServicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(TxtServicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel10)
+                                            .addComponent(TxtFecCit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel11))
+                                    .addComponent(BAyudaMedico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TxtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(TxtNomMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TxtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(TxtFecCit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel11))
-                    .addComponent(TxtIdMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(TxtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtNomMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TxtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BGrabarPaciente2)
+                    .addComponent(BGrabarCita)
                     .addComponent(BSalir1))
                 .addGap(28, 28, 28))
         );
@@ -266,9 +325,9 @@ public class CrearCita extends javax.swing.JFrame {
 
     private void BSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalir1ActionPerformed
         this.setVisible(false);
-        Menu FMenu = new Menu();
-        FMenu.setVisible(true);
-        FMenu.pack();
+        Citas FCitas = new Citas();
+        FCitas.setVisible(true);
+        FCitas.pack();
     }//GEN-LAST:event_BSalir1ActionPerformed
 
     private void BAyudaPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAyudaPacienteActionPerformed
@@ -278,15 +337,57 @@ public class CrearCita extends javax.swing.JFrame {
         
     }//GEN-LAST:event_BAyudaPacienteActionPerformed
 
-    private void BGrabarPaciente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGrabarPaciente2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BGrabarPaciente2ActionPerformed
+    private void BGrabarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BGrabarCitaActionPerformed
+        try{
+            conn=Main.Enlace(conn);
+            
+            //actualizar contador conecutivo de citas
+            String sqlcontador="UPDATE CONTADOR SET IDCONTADOR = IDCONTADOR + 1";
+            PreparedStatement pstu=conn.prepareStatement(sqlcontador);
+            String sqlinsertar="INSERT INTO CITAS VALUES(?,?,?,?,?,?)";
+            PreparedStatement psta=conn.prepareStatement(sqlinsertar);
+            
+            psta.setInt(1, Integer.parseInt(TxtCita.getText()));  
+            psta.setString(2, TxtCedula.getText());
+            psta.setString(3, TxtServicio.getText());
+            psta.setString(4, TxtIdMedico.getText());
+            psta.setString(5, TxtFecCit.getText());
+            psta.setString(6, "PENDIENTE");
+           // JOptionPane.showMessageDialog(null,sqlinsertar);
+            psta.execute();
+            psta.close();
+            pstu.executeUpdate();
+            pstu.close();
+            
+            this.TxtCita.setText(null);
+            this.TxtCedula.setText(null);
+            this.TxtServicio.setText(null);
+            this.TxtIdMedico.setText(null);
+            this.TxtFecCit.setText(null);
+            this.TxtNombre.setText(null);
+            this.TxtFecNac.setText(null);
+            this.TxtSexo.setText(null);
+            this.TxtCosto.setText(null);
+            this.TxtDescripcion.setText(null);
+            this.TxtNomMedico.setText(null);
+            this.TxtEspecialidad.setText(null);
+            JOptionPane.showMessageDialog(null,"Cita generada");
+        }catch (Exception e){
+            System.out.println(e.getCause());
+        }
+    }//GEN-LAST:event_BGrabarCitaActionPerformed
 
     private void BAyudaServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAyudaServicioActionPerformed
         AyudaServicio FAyudaServicio = new AyudaServicio();
         FAyudaServicio.setVisible(true);
         FAyudaServicio.pack();
     }//GEN-LAST:event_BAyudaServicioActionPerformed
+
+    private void BAyudaMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAyudaMedicoActionPerformed
+        AyudaMedico FAyudaMedico = new AyudaMedico();
+        FAyudaMedico.setVisible(true);
+        FAyudaMedico.pack();
+    }//GEN-LAST:event_BAyudaMedicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -327,18 +428,20 @@ public class CrearCita extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BAyudaMedico;
     private javax.swing.JButton BAyudaPaciente;
     private javax.swing.JButton BAyudaServicio;
-    private javax.swing.JButton BGrabarPaciente2;
+    private javax.swing.JButton BGrabarCita;
     private javax.swing.JButton BSalir1;
     public static javax.swing.JTextField TxtCedula;
+    private javax.swing.JTextField TxtCita;
     public static javax.swing.JTextField TxtCosto;
     public static javax.swing.JTextField TxtDescripcion;
-    private javax.swing.JTextField TxtEspecialidad;
+    public static javax.swing.JTextField TxtEspecialidad;
     private javax.swing.JTextField TxtFecCit;
     public static javax.swing.JTextField TxtFecNac;
-    private javax.swing.JTextField TxtIdMedico;
-    private javax.swing.JTextField TxtNomMedico;
+    public static javax.swing.JTextField TxtIdMedico;
+    public static javax.swing.JTextField TxtNomMedico;
     public static javax.swing.JTextField TxtNombre;
     public static javax.swing.JTextField TxtServicio;
     public static javax.swing.JTextField TxtSexo;
@@ -351,6 +454,7 @@ public class CrearCita extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

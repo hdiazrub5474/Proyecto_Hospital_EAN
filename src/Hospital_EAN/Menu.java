@@ -32,6 +32,7 @@ public class Menu extends javax.swing.JFrame {
         BPaciente = new javax.swing.JButton();
         BMedico = new javax.swing.JButton();
         BSalir = new javax.swing.JButton();
+        BCitas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,23 +71,34 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        BCitas.setBackground(new java.awt.Color(0, 51, 153));
+        BCitas.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BCitas.setForeground(new java.awt.Color(255, 255, 255));
+        BCitas.setText("CITAS");
+        BCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BCitasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(BPaciente)
-                        .addGap(18, 18, 18)
-                        .addComponent(BMedico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BSalir)))
+                .addGap(68, 68, 68)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(97, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(BPaciente)
+                .addGap(18, 18, 18)
+                .addComponent(BMedico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BCitas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BSalir)
+                .addGap(45, 45, 45))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,7 +109,8 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BPaciente)
                     .addComponent(BMedico)
-                    .addComponent(BSalir))
+                    .addComponent(BSalir)
+                    .addComponent(BCitas))
                 .addGap(37, 37, 37))
         );
 
@@ -132,6 +145,13 @@ public class Menu extends javax.swing.JFrame {
     private void BSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalirActionPerformed
             dispose();
     }//GEN-LAST:event_BSalirActionPerformed
+
+    private void BCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCitasActionPerformed
+        this.setVisible(false);
+        Citas FCitas = new Citas();
+        FCitas.setVisible(true);
+        FCitas.pack();
+    }//GEN-LAST:event_BCitasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,6 +189,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BCitas;
     private javax.swing.JButton BMedico;
     private javax.swing.JButton BPaciente;
     private javax.swing.JButton BSalir;

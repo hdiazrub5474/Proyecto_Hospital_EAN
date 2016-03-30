@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author HUGO DIAZ
  */
-public class Citas extends javax.swing.JFrame {
+public class AyudaMedico extends javax.swing.JFrame {
     static Connection conn=null;
    // static Statement st=null;
    // static ResultSet rp=null;
@@ -24,30 +24,29 @@ public class Citas extends javax.swing.JFrame {
     /**
      * Creates new form Pacientes
      */
-    public Citas() {
+    public AyudaMedico() {
         initComponents();
         mostrarDatosPaciente("");
     }
     
     void mostrarDatosPaciente(String valor){
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("NRO CITA");
-        modelo.addColumn("CEDULA PACIENTE");
-        modelo.addColumn("CODIGO SERVICIO");
-        modelo.addColumn("CODIGO MEDICO");
-        modelo.addColumn("FECHA CITA");
-        modelo.addColumn("ESTADO");
-        TablaCita.setModel(modelo);
+        modelo.addColumn("CEDULA");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("FECHA DE NACIMIENTO");
+        modelo.addColumn("ESPECIALIDAD");
+        modelo.addColumn("NACIONALIDAD");
+        TablaMedico.setModel(modelo);
         String sql="";
         if (valor.equals(""))
         {
-            sql="SELECT * FROM CITAS";
+            sql="SELECT * FROM MEDICOS";
         }
         else
         {
-            sql="SELECT * FROM CITAS WHERE IDPACIENTE='"+valor+"'";
+            sql="SELECT * FROM MEDICOS WHERE CEDULA='"+valor+"'";
         }
-        String datos[] = new String [6];
+        String datos[] = new String [5];
         try {
             conn=Main.Enlace(conn);
             Statement st = conn.createStatement();
@@ -59,12 +58,11 @@ public class Citas extends javax.swing.JFrame {
                 datos[2]= rs.getString(3);
                 datos[3]= rs.getString(4);
                 datos[4]= rs.getString(5);
-                datos[5]= rs.getString(6);
                 modelo.addRow(datos);
             }
-            TablaCita.setModel(modelo);
+            TablaMedico.setModel(modelo);
         } catch (SQLException ex) {
-            Logger.getLogger(Citas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AyudaMedico.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -79,24 +77,23 @@ public class Citas extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         BMostrarDatos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         BSalir1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TablaCita = new javax.swing.JTable();
+        TablaMedico = new javax.swing.JTable();
         TxtBuscar = new javax.swing.JTextField();
-        BBuscar = new javax.swing.JButton();
-        BCrearCita = new javax.swing.JButton();
+        BBuscar1 = new javax.swing.JButton();
 
-        jMenuItem2.setText("Eliminar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem1.setText("Seleccionar Registro");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuItem1ActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(jMenuItem2);
+        jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -115,7 +112,7 @@ public class Citas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("GESTION DE CITAS");
+        jLabel1.setText("CONSULTA DE MEDICOS");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         BSalir1.setBackground(new java.awt.Color(0, 51, 153));
@@ -128,7 +125,7 @@ public class Citas extends javax.swing.JFrame {
             }
         });
 
-        TablaCita.setModel(new javax.swing.table.DefaultTableModel(
+        TablaMedico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -136,28 +133,18 @@ public class Citas extends javax.swing.JFrame {
 
             }
         ));
-        TablaCita.setComponentPopupMenu(jPopupMenu1);
-        TablaCita.setGridColor(new java.awt.Color(0, 128, 128));
-        TablaCita.setSelectionForeground(new java.awt.Color(0, 255, 255));
-        jScrollPane1.setViewportView(TablaCita);
+        TablaMedico.setComponentPopupMenu(jPopupMenu1);
+        TablaMedico.setGridColor(new java.awt.Color(0, 128, 128));
+        TablaMedico.setSelectionForeground(new java.awt.Color(0, 255, 255));
+        jScrollPane1.setViewportView(TablaMedico);
 
-        BBuscar.setBackground(new java.awt.Color(0, 51, 153));
-        BBuscar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        BBuscar.setForeground(new java.awt.Color(255, 255, 255));
-        BBuscar.setText("BUSCAR");
-        BBuscar.addActionListener(new java.awt.event.ActionListener() {
+        BBuscar1.setBackground(new java.awt.Color(0, 51, 153));
+        BBuscar1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BBuscar1.setForeground(new java.awt.Color(255, 255, 255));
+        BBuscar1.setText("BUSCAR");
+        BBuscar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BBuscarActionPerformed(evt);
-            }
-        });
-
-        BCrearCita.setBackground(new java.awt.Color(0, 51, 153));
-        BCrearCita.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        BCrearCita.setForeground(new java.awt.Color(255, 255, 255));
-        BCrearCita.setText("CREAR CITA ");
-        BCrearCita.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BCrearCitaActionPerformed(evt);
+                BBuscar1ActionPerformed(evt);
             }
         });
 
@@ -167,39 +154,36 @@ public class Citas extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
                         .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(BBuscar)
+                        .addGap(34, 34, 34)
+                        .addComponent(BBuscar1)
                         .addGap(18, 18, 18)
-                        .addComponent(BMostrarDatos)
-                        .addGap(110, 110, 110))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(BCrearCita)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BSalir1))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(BMostrarDatos))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(274, 274, 274)
+                        .addComponent(BSalir1)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(78, 78, 78)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BBuscar)
+                    .addComponent(BBuscar1)
                     .addComponent(BMostrarDatos))
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BSalir1)
-                    .addComponent(BCrearCita))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BSalir1)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -210,50 +194,51 @@ public class Citas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 13, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-            int fila=TablaCita.getSelectedRow();
-            String cedula=TablaCita.getValueAt(fila, 1).toString();
-            
-            try{
-                conn=Main.Enlace(conn);
-                String sqldelete="DELETE FROM CITAS WHERE IDPACIENTE='"+cedula+"'";
-                //JOptionPane.showMessageDialog(null,sqldelete);
-                PreparedStatement psta=conn.prepareStatement(sqldelete);
-                psta.executeUpdate();
-                mostrarDatosPaciente("");
-            }catch (Exception e){
-                System.out.print(e.getMessage());
-            }
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
-        mostrarDatosPaciente(TxtBuscar.getText());
-        this.TxtBuscar.setText(null);
-    }//GEN-LAST:event_BBuscarActionPerformed
+    private void BMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMostrarDatosActionPerformed
+             mostrarDatosPaciente("");
+    }//GEN-LAST:event_BMostrarDatosActionPerformed
 
     private void BSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSalir1ActionPerformed
         this.setVisible(false);
-        Menu FMenu = new Menu();
-        FMenu.setVisible(true);
-        FMenu.pack();
+       // Menu FMenu = new Menu();
+       // FMenu.setVisible(true);
+       // FMenu.pack();
     }//GEN-LAST:event_BSalir1ActionPerformed
 
-    private void BMostrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BMostrarDatosActionPerformed
-        mostrarDatosPaciente("");
-    }//GEN-LAST:event_BMostrarDatosActionPerformed
+    private void BBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscar1ActionPerformed
+            mostrarDatosPaciente(TxtBuscar.getText());
+            this.TxtBuscar.setText(null);
+    }//GEN-LAST:event_BBuscar1ActionPerformed
 
-    private void BCrearCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BCrearCitaActionPerformed
-        this.setVisible(false);
-        CrearCita FCrearCita = new CrearCita();
-        FCrearCita.setVisible(true);
-        FCrearCita.pack();
-    }//GEN-LAST:event_BCrearCitaActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+            int fila=TablaMedico.getSelectedRow();
+            //JOptionPane.showMessageDialog(null,fila);
+            if (fila>=0)
+            {
+                //CrearCita FCrearCita = new CrearCita();
+                //Customize Codigo se debe poner los campos publico static para que se pueda usar desde otro form
+                CrearCita.TxtIdMedico.setText(TablaMedico.getValueAt(fila, 0).toString());
+                CrearCita.TxtNomMedico.setText(TablaMedico.getValueAt(fila, 1).toString());
+                CrearCita.TxtEspecialidad.setText(TablaMedico.getValueAt(fila, 3).toString());
+                
+                this.setVisible(false);
+                //FCrearCita  .setVisible(true);
+                
+                
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null,"No selecciono fila");
+            }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,34 +257,47 @@ public class Citas extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Citas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AyudaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Citas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AyudaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Citas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AyudaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Citas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AyudaMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Citas().setVisible(true);
+                new AyudaMedico().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BBuscar;
-    private javax.swing.JButton BCrearCita;
+    private javax.swing.JButton BBuscar1;
     private javax.swing.JButton BMostrarDatos;
     private javax.swing.JButton BSalir1;
-    private javax.swing.JTable TablaCita;
+    private javax.swing.JTable TablaMedico;
     private javax.swing.JTextField TxtBuscar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
